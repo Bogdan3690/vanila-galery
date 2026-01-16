@@ -1,8 +1,15 @@
-// який будемо зберігати в атрибуті data-color.
-const container = document.querySelector('.color-palette')
+const container = document.querySelector('.js-gallery')
 const text = document.querySelector('.output')
+const modal = document.querySelector('.js-lightbox')
 
 
+function createItems(){
+        const markup = galleryItems
+.map(galleryItem => `<img class="item" src="${galleryItem.preview}" alt="${galleryItem.description}">`)
+.join('')
+container.insertAdjacentHTML('beforeend', markup)
+    }
+    console.log(galleryItems)
 
 
 const galleryItems = [
