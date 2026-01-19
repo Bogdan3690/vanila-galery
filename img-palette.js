@@ -1,5 +1,9 @@
 const container = document.querySelector(".js-gallery");
-const modal = document.querySelector(".js-lightbox");
+const jsBackdrop = document.querySelector(".js-lightbox");
+const openBtn = document.querySelector(['button[data-action="open-modal"']);
+const closeBtn = document.querySelector([
+  'button[data-action="close-lightbox"',
+]);
 
 const galleryItems = [
   {
@@ -116,10 +120,57 @@ function createItems() {
 
 createItems();
 
-container.addEventListener('click', onClickOriginal)
+container.addEventListener("click", onClickOriginal);
 
-function onClickOriginal(ev){
-    if (ev.target.nodeName !== "IMG") { // its not a img
-        return
-    }
+function onClickOriginal(ev) {
+}
+
+container.addEventListener("click", onClick);
+closeBtn.addEventListener("click", onCloseBtnClick);
+jsBackdrop.addEventListener("click", onBackDropClick);
+
+function onOpenBtnClick() {
+  document.jsBackdrop.classList.add("is-open");
+  document.addEventListener("keydown", onEsc);
+
+}
+
+function onClick(ev) {
+    ev.preventDefault()
+    console.log(ev.target);
+    
+  if (ev.target.nodeName !== "IMG") {
+    // its not a img
+    return;
+  }
+  ev.target;
+  onOpenBtnClick()
+}
+
+function onCloseBtnClick() {
+  onCloseModal();
+}
+
+function onBackDropClick(even) {
+  if (even.target === even.currentTarget) {
+    onCloseModal();
+  }
+  console.log(even.target);
+  console.log(even.currentTarget);
+}
+
+function onCloseModal() {
+  document.removeEventListener("keydown", onEsc);
+  document.jsBackdrop.classList.remove("is-open");
+}
+
+console.log(openBtn.dataset);
+console.log(openBtn.dataset.action);
+// openBtn.style.color=openBtn.dataset.color
+
+function onEsc(event) {
+  console.log(event.code);
+  if (event.code === "Escape") {
+    onCloseModal();
+  }
 }
