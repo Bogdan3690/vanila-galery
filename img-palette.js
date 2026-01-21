@@ -120,10 +120,6 @@ function createItems() {
 
 createItems();
 
-container.addEventListener("click", onClickOriginal);
-
-function onClickOriginal(ev) {
-}
 
 container.addEventListener("click", onClick);
 closeBtn.addEventListener("click", onCloseBtnClick);
@@ -132,18 +128,14 @@ jsBackdrop.addEventListener("click", onBackDropClick);
 function onOpenBtnClick() {
   document.jsBackdrop.classList.add("is-open");
   document.addEventListener("keydown", onEsc);
-
 }
 
 function onClick(ev) {
     ev.preventDefault()
     console.log(ev.target);
-    
-  if (ev.target.nodeName !== "IMG") {
-    // its not a img
+  if (ev.target.nodeName !== "IMG") {// its not a img
     return;
   }
-  ev.target;
   onOpenBtnClick()
 }
 
@@ -163,10 +155,6 @@ function onCloseModal() {
   document.removeEventListener("keydown", onEsc);
   document.jsBackdrop.classList.remove("is-open");
 }
-
-console.log(openBtn.dataset);
-console.log(openBtn.dataset.action);
-// openBtn.style.color=openBtn.dataset.color
 
 function onEsc(event) {
   console.log(event.code);
