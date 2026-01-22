@@ -112,13 +112,13 @@ body {
 
 .lightbox__button {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 18px;
+  right: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 68px;
+  height: 68px;
   padding: 0;
   margin: 0;
   border: none;
@@ -127,8 +127,6 @@ body {
   color: #fff;
   cursor: pointer;
   transition: background-color var(--animation-duration) var(--timing-function);
-  outline: none;
-  background-image: url('../images/icon-close.svg');
   background-position: center;
   background-size: 60%;
   background-repeat: no-repeat;

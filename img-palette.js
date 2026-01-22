@@ -1,10 +1,3 @@
-const container = document.querySelector(".js-gallery");
-const jsBackdrop = document.querySelector(".js-lightbox");
-const openBtn = document.querySelector(['button[data-action="open-modal"']);
-const closeBtn = document.querySelector([
-  'button[data-action="close-lightbox"',
-]);
-
 const galleryItems = [
   {
     preview:
@@ -71,6 +64,13 @@ const galleryItems = [
   },
 ];
 
+const container = document.querySelector(".js-gallery");
+const jsBackdrop = document.querySelector(".js-lightbox");
+const overlay = document.querySelector(".lightbox__overlay");
+const modalImg = document.querySelector(".lightbox__image");
+const closeBtn = document.querySelector([
+  'button[data-action="close-lightbox"']);
+
 function createItems() {
   // let items = []
 
@@ -106,7 +106,7 @@ function createItems() {
     const img = document.createElement("img");
     img.classList.add("gallery__image");
     img.src = item.preview;
-    img.dataset.org = item.original;
+    img.dataset.source = item.original;
     img.alt = item.description;
 
     link.appendChild(img);
@@ -120,15 +120,10 @@ function createItems() {
 
 createItems();
 
-
 container.addEventListener("click", onClick);
 closeBtn.addEventListener("click", onCloseBtnClick);
-jsBackdrop.addEventListener("click", onBackDropClick);
-
-function onOpenBtnClick() {
-  document.jsBackdrop.classList.add("is-open");
-  document.addEventListener("keydown", onEsc);
-}
+overlay.addEventListener("click", onBackDropClick);
+document.addEventListener("keydown", onEsc);
 
 function onClick(ev) {
     ev.preventDefault()
@@ -136,29 +131,33 @@ function onClick(ev) {
   if (ev.target.nodeName !== "IMG") {// its not a img
     return;
   }
-  onOpenBtnClick()
+
+    jsBackdrop.classList.add('is-open')
+    modalImg.src = ev.target.dataset.source
+    modalImg.alt = ev.target.alt
 }
 
 function onCloseBtnClick() {
   onCloseModal();
 }
 
-function onBackDropClick(even) {
-  if (even.target === even.currentTarget) {
+function onBackDropClick(ev) {
+  if (ev.target === ev.currentTarget) {
     onCloseModal();
   }
-  console.log(even.target);
-  console.log(even.currentTarget);
+  console.log(ev.target);
+  console.log(ev.currentTarget);
 }
 
 function onCloseModal() {
-  document.removeEventListener("keydown", onEsc);
-  document.jsBackdrop.classList.remove("is-open");
+  jsBackdrop.classList.remove("is-open");
+    modalImg.src = ''
+    modalImg.alt = ''
 }
 
 function onEsc(event) {
   console.log(event.code);
-  if (event.code === "Escape") {
+  if (event.code === "Escape" && jsBackdrop.classList.contains('is-open')) {
     onCloseModal();
   }
 }
