@@ -123,7 +123,10 @@ createItems();
 container.addEventListener("click", onClick);
 closeBtn.addEventListener("click", onCloseBtnClick);
 overlay.addEventListener("click", onBackDropClick);
-document.addEventListener("keydown", onEsc);
+
+function onOpenBtnClick() {
+  document.jsBackdrop.classList.add('is-open')
+}
 
 function onClick(ev) {
     ev.preventDefault()
@@ -131,10 +134,17 @@ function onClick(ev) {
   if (ev.target.nodeName !== "IMG") {// its not a img
     return;
   }
-
-    jsBackdrop.classList.add('is-open')
     modalImg.src = ev.target.dataset.source
     modalImg.alt = ev.target.alt
+    jsBackdrop.classList.add('is-open')
+document.addEventListener("keydown", onEsc);
+}
+
+function onCloseModal() {
+  document.removeEventListener("keydown", onEsc)
+  jsBackdrop.classList.remove("is-open");
+    modalImg.src = ''
+    modalImg.alt = ''
 }
 
 function onCloseBtnClick() {
@@ -149,15 +159,10 @@ function onBackDropClick(ev) {
   console.log(ev.currentTarget);
 }
 
-function onCloseModal() {
-  jsBackdrop.classList.remove("is-open");
-    modalImg.src = ''
-    modalImg.alt = ''
-}
-
 function onEsc(event) {
   console.log(event.code);
   if (event.code === "Escape" && jsBackdrop.classList.contains('is-open')) {
     onCloseModal();
   }
 }
+
